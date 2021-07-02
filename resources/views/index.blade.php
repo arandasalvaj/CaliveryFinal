@@ -74,17 +74,6 @@
       <div class="container">
         @yield('seccion')  
       </div>
-        @can('Delivery')
-        <h1>Bienvenido, Eres Repartidor</h1>
-        @endcan
-
-        @can('Seller')
-        <h1>Bienvenido, Eres Vendedor</h1>
-        @endcan
-
-        @can('Customer')
-        <h1>Bienvenido, Eres Cliente</h1>
-        @endcan
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>

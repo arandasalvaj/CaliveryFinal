@@ -5,17 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function index(){
-        
-        $productos = Product::latest()->paginate(5);
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-        return view('productos.index',compact('productos'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+    public function index(){
+
+        $user = Auth::user();
+        $tienda = User::find($user->id)->store;
+        //$store = Store::paginate();
+        //return view('tienda.index')->with('tiendas');
+        //return view('tienda.index')->with('tiendas',$tienda);
+         return view('tienda.index')->with('tiendas',$tienda);
     }
 
     /**
@@ -23,8 +31,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categorias = Category::all();
-        return view('productos.create',compact('categorias'));
+        $categories = Category::all();
+        $user = Auth::user();
+        $store = Store::find($user->id);
+        return view('producto.index',compact('store','categories'));
     }
 
     /**
@@ -32,32 +42,32 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       /* $request->validate([
             'nombre' => 'required',
             'precio' => 'required',
             'stock' => 'required',
             'detalle' => 'required',
             'tamano' => 'required',
         ]);
-
+        */
         $user = Auth::user();
         $producto = new Product();
         $tiendas = Store::select('id')->where('user_id',$user->id)->get();
         foreach($tiendas as $tienda) {
             $innum=$tienda->id;
         }
-        $producto -> nombre = $request->nombre;
-        $producto -> precio = $request->precio;
+        $producto -> name = $request->name;
+        $producto -> price = $request->price;
         $producto -> stock = $request->stock;
-        $producto -> detalle = $request->detalle;
-        $producto -> tamano =  $request->tamano;
-        $producto -> estado = 1;
+        $producto -> detail = $request->detail;
+        $producto -> size =  $request->size;
+        $producto -> status = 1;
         $producto -> img = $request -> img;
-        $producto -> categoria_id = $request->categoriaid;
+        $producto -> categoria_id = $request->category_id;
         $producto -> tienda_id = $innum;
         $producto->save();
         
-        return redirect()->route('productos.create')>with('success','Producto creada satisfactoriamente.');
+        return redirect()->route('productos.index');
     }
 
     /**

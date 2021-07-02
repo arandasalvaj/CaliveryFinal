@@ -35,19 +35,23 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        if (auth()->user()->tieneRol == 'Store') {
-            return '/home';
+        /*foreach (auth()->user() as $users ) {
+            if ($users->tieneRol == 'Store') {
+                return '/home';
+            }
+            if ($users->tieneRol == 'Seller') {
+                return '/tienda/create';
+            }
+            if ($users->tieneRol == 'Customer') {
+                return '/tienda/create';
+            }
+            if ($users->tieneRol == 'Delivery') {
+                return '/home';
+            }   
+            return '/';
         }
-        if (auth()->user()->tieneRol == 'Seller') {
-            return '/tienda/create';
-        }
-        if (auth()->user()->tieneRol == 'Customer') {
-            return '/home';
-        }
-        if (auth()->user()->tieneRol == 'Delivery') {
-            return '/home';
-        }
-        return '/home';
+        */
+        return '/tienda/create';
     }
     //protected $redirectTo = RouteServiceProvider::HOME;
 

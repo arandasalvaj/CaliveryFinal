@@ -22,10 +22,6 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('blog', function () {
-    return view('home1');
-})->name('blog');
-
 Route::get('/registro-repartidor', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationFormD'])->name('registerD');
 Route::get('/registro-vendedor', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationFormS'])->name('registerS');
 Route::post('/registro-vendedor', [App\Http\Controllers\Auth\RegisterController::class, 'registerSeller'])->name('registerS');

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'lastname',
         'cellphone',
         'address',
+        'id',
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -55,5 +56,10 @@ class User extends Authenticatable
 
     public function tieneRol(){
         return $this->roles->flatten()->pluck('name')->unique();
+    }
+
+    public function tienda()
+    {
+        return $this->hasOne(Store::class);
     }
 }

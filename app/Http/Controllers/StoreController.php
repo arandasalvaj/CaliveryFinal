@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\role_user;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,8 +18,14 @@ class StoreController extends Controller
 
     public function index()
     {
-        $tienda = Store::paginate();
-        return view('tienda.index',compact('tienda'));
+        $user = Auth::user();
+        $store = User::find($user->id)->store;
+        $tienda = new Store();
+        $tienda= Store::all();
+        //$store = Store::paginate();
+        //return view('tienda.index')->with('tiendas');
+        
+         return view('tienda.index')->with('tiendas',$tienda);
     }
 
     /**
@@ -30,27 +39,33 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    //tienda.store
     public function store(Request $request)
     {
-        $request->validate([
+       /* $request->validate([
             'name' => 'required',
             'address' => 'required',
             'cellphone' => 'required','max:11',
             'email' => 'required',
-            'banner' => 'required',
             'logo' => 'required',
-        ]);
+        ]);*/
 
-        $user = Auth::user();
+        $users = Auth::user();
         $store = new Store();
-        $store -> nombre = $request->name;
-        $store -> direccion = $request->address;
-        $store -> telefono = $request->cellphone;
-        $store -> correo =  $user->email;
-        $store -> user_id = $user->id;
-        $store->save();
+        $store -> name = $request->name;
+        $store -> address = $request->address;
+        $store -> cellphone = $request->cellphone;
+        $store -> email =  $request->email;
+        //$store -> logo = $request->logo;
+        $store -> user_id = $users->id;
         
-        return view('tienda.index',compact('store'));
+        $store->save();
+
+        $rolU = role_user::where('user_id', '=', $users->id)->first();
+        $rolU->role_id = 1;
+        $rolU->save();
+        return redirect()->route('tienda.index');
+        //return view('tienda.index',compact('store'));
     }
 
     /**
@@ -64,9 +79,9 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Store $producto)
+    public function edit(Store $tienda)
     {
-        return view('tienda.edit',compact('tienda'));
+        return view('tienda.edit')->with('tienda',Store::find($tienda));
     }
 
     /**
@@ -75,28 +90,28 @@ class StoreController extends Controller
     public function update(Request $request, Store $tienda)
     {
         $request->validate([
-            'nombre' => 'required',
-            'direccion' => 'required',
-            'rubro' => 'required',
-            'telefono' => 'required',
-            'banner' => 'required',
-            
+            'name' => 'required',
+            'address' => 'required',
+            'cellphone' => 'required',
+            'email' => 'required',
         ]);
 
         $tienda->update($request->all());
-
-        return redirect()->route('tienda.index')
-            ->with('success','Producto actualizado satisfactoriamente.');
+        //return redirect()->route('tienda.index');
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Store $tienda)
+    public function destroy($id)
     {
-        $tienda->delete();
-
-        return redirect()->route('tienda.index')
-            ->with('success','Producto eliminado satisfactoriamente.');
+        Store::destroy($id);
+        $users = Auth::user();
+        $rolU = role_user::where('user_id', '=', $users->id)->first();
+        $rolU->role_id = 2;
+        $rolU->save();
+        return redirect()->route('tienda.create');
     }
+
 }
