@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ProductController extends Controller
 {
@@ -19,11 +20,17 @@ class ProductController extends Controller
     public function index(){
 
         $user = Auth::user();
-        $tienda = User::find($user->id)->store;
-        //$store = Store::paginate();
-        //return view('tienda.index')->with('tiendas');
-        //return view('tienda.index')->with('tiendas',$tienda);
-         return view('tienda.index')->with('tiendas',$tienda);
+       
+        $categories = Category::all();
+
+        $tiendas = Store::where('user_id', '=', $user->id)->get();
+
+        foreach($tiendas as $tienda){
+            $products = Product::where('store_id', '=', $tienda->id)->get();
+        }
+        
+        $products = Product::all();
+        return view('producto.index',compact('products','categories'));
     }
 
     /**
@@ -34,7 +41,8 @@ class ProductController extends Controller
         $categories = Category::all();
         $user = Auth::user();
         $store = Store::find($user->id);
-        return view('producto.index',compact('store','categories'));
+        return view('producto.create')->with('categories',$categories);
+        //return view('producto.index',compact('store','categories'));
     }
 
     /**
@@ -42,13 +50,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       /* $request->validate([
-            'nombre' => 'required',
-            'precio' => 'required',
+        $request->validate([
+            'name' => ['required', 'string', 'max:12'],
+            'price' => 'required',
             'stock' => 'required',
-            'detalle' => 'required',
-            'tamano' => 'required',
+            'detail' => 'required',
         ]);
+
+        /*
+        'name' => ['required', 'string', 'max:12'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+        'lastname' => ['required', 'string', 'max:64'],
+        'rut' => ['required', 'max:11'],
         */
         $user = Auth::user();
         $producto = new Product();
@@ -60,14 +74,14 @@ class ProductController extends Controller
         $producto -> price = $request->price;
         $producto -> stock = $request->stock;
         $producto -> detail = $request->detail;
-        $producto -> size =  $request->size;
+        //$producto -> size =  $request->size;
         $producto -> status = 1;
         $producto -> img = $request -> img;
-        $producto -> categoria_id = $request->category_id;
-        $producto -> tienda_id = $innum;
+        $producto -> category_id = $request->category_id;
+        $producto -> store_id = $innum;
         $producto->save();
-        
-        return redirect()->route('productos.index');
+
+        return redirect()->route('producto.index');
     }
 
     /**
@@ -81,9 +95,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $productos)
+    public function edit($id)
     {
-        return view('productos.edit',compact('productos'));
+        $categories = Category::all();
+        $products= Product::find($id)->get();
+        return view('producto.edit',compact('products','categories'));
     }
 
     /**
@@ -92,34 +108,26 @@ class ProductController extends Controller
     public function update(Request $request, Product $producto)
     {
         $request->validate([
-            'nombre' => 'required',
-            'precio' => 'required',
+            'name' => 'required',
+            'price' => 'required',
             'stock' => 'required',
-            'detalle' => 'required',
-            'tamano' => 'required',
+            'detail' => 'required',
             
         ]);
         
-        $producto -> nombre = $request->nombre;
-        $producto -> nombre = $request->nombre;
-        $producto -> precio = $request->precio;
-        $producto -> stock = $request->stock;
-        $producto -> detalle = $request->detalle;
-        $producto -> tamano =  $request->tamano;
-        $producto->save();
-        
-        return redirect()->route('productos.index')->with('success','Producto editado satisfactoriamente.');
+        $producto->update($request->all());
+        //return redirect()->route('tienda.index');
+        return back();
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $producto)
+    public function destroy($id)
     {
-        $producto->delete();
+        Product::destroy($id);
 
-        return redirect()->route('productos.index')
-            ->with('success','Producto eliminado satisfactoriamente.');
+        return back();
     }
 }

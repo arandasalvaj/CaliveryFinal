@@ -105,11 +105,7 @@
               </div>
             </div>
             <!----Termino Modal---->
-
-
-
             @endforeach
-               
 </div>
 @endcan
 @endsection

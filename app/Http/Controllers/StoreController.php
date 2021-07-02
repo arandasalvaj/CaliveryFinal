@@ -81,6 +81,7 @@ class StoreController extends Controller
      */
     public function edit(Store $tienda)
     {
+
         return view('tienda.edit')->with('tienda',Store::find($tienda));
     }
 

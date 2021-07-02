@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,7 +14,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categorias = Categoria::paginate();
+        $categorias = Category::paginate();
 
         return view('categoria.index',compact('categorias'));
     }
@@ -41,7 +42,7 @@ class CategoryController extends Controller
             'logo' => 'required',
         ]);
         
-        $categoria = new Categoria();
+        $categoria = new Category();
         $categoria -> nombre = $request->nombre;
         $categoria -> logo = $request->logo;
         $categoria->save();
@@ -66,7 +67,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit(Category $categoria)
     {
         return view('categoria.edit',compact('categoria'));
     }
@@ -78,7 +79,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, Category $categoria)
     {
         $request->validate([
             'nombre' => 'required',
@@ -97,7 +98,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(Category $categoria)
     {
         $categoria->delete();
 

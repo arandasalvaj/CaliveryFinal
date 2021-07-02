@@ -50,7 +50,7 @@
                       <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                         
                         <li class="nav-item">
-                          <a class="nav-link" href="#"><b>Home</b></a>
+                          <a class="nav-link" href="{{route('producto.index')}}"><b>Productos</b></a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#"><b>Home</b></a>

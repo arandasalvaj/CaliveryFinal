@@ -29,5 +29,5 @@ Route::post('/registro-repartidor', [App\Http\Controllers\Auth\RegisterControlle
 
 Route::resource('/tienda',StoreController::class);
 Route::resource('/categorias',CategoryController::class);
-Route::resource('/tienda/producto',ProductController::class);
+Route::resource('/producto',ProductController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

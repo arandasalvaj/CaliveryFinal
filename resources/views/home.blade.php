@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.plantilla')
+@section('seccion')
 
-@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -13,14 +13,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        
-                    @can('Vendedor')
-                    {{ __('Eres Vendedor') }}
-                    @endcan
 
-                    @can('Cliente')
-                    {{ __('Eres Cliente') }}
-                    @endcan
                 </div>
             </div>
         </div>
