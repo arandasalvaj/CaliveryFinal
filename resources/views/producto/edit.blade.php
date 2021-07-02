@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-          @foreach ($products as $product)
+          
           <form action="{{ route('producto.update',$product->id) }}" method="POST">
               @csrf
               @method('PUT')
@@ -46,7 +46,7 @@
                       <div class="col">
                       </div>
                 </div>
-                @endforeach
+                
                 <div class="row py-2">
                     <div class="col">
                         <label for="">Seleccione una Categoria:</label>

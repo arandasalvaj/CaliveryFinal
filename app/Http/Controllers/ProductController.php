@@ -98,8 +98,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
-        $products= Product::find($id)->get();
-        return view('producto.edit',compact('products','categories'));
+        $product= Product::where('id', $id)->first();
+        return view('producto.edit',compact('product','categories'));
     }
 
     /**
