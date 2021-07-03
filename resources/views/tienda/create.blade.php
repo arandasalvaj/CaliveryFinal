@@ -1,5 +1,5 @@
 @extends('layouts.plantilla')
-@section('seccion')
+@section('contenido')
 @can('Seller')
 <h1>Bienvenido, eres Vendedor y puedes crear tu tienda naaaaaaa</h1>
     <div class="container-fluid px-4">

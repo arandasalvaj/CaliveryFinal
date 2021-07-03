@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\TryCatch;
 
 class ProductController extends Controller
 {
@@ -18,19 +16,12 @@ class ProductController extends Controller
     }
 
     public function index(){
-
         $user = Auth::user();
-       
         $categories = Category::all();
-
-        $tiendas = Store::where('user_id', '=', $user->id)->get();
-
-        foreach($tiendas as $tienda){
-            $products = Product::where('store_id', '=', $tienda->id)->get();
-        }
-        
+        $store = Store::where('user_id', $user->id)->get();
+        foreach($store as $tienda){$products = Product::where('store_id', $tienda->id)->get();}
         $products = Product::all();
-        return view('producto.index',compact('products','categories'));
+        return view('producto.ayuda',compact('products','categories', 'store'));
     }
 
     /**
@@ -39,10 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $user = Auth::user();
-        $store = Store::find($user->id);
         return view('producto.create')->with('categories',$categories);
-        //return view('producto.index',compact('store','categories'));
     }
 
     /**
@@ -56,29 +44,17 @@ class ProductController extends Controller
             'stock' => 'required',
             'detail' => 'required',
         ]);
-
-        /*
-        'name' => ['required', 'string', 'max:12'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
-        'lastname' => ['required', 'string', 'max:64'],
-        'rut' => ['required', 'max:11'],
-        */
         $user = Auth::user();
         $producto = new Product();
-        $tiendas = Store::select('id')->where('user_id',$user->id)->get();
-        foreach($tiendas as $tienda) {
-            $innum=$tienda->id;
-        }
+        $idTienda = Store::select('id')->where('user_id',$user->id)->first();
         $producto -> name = $request->name;
         $producto -> price = $request->price;
         $producto -> stock = $request->stock;
         $producto -> detail = $request->detail;
-        //$producto -> size =  $request->size;
         $producto -> status = 1;
         $producto -> img = $request -> img;
         $producto -> category_id = $request->category_id;
-        $producto -> store_id = $innum;
+        $producto -> store_id = $idTienda->id;
         $producto->save();
 
         return redirect()->route('producto.index');
@@ -89,7 +65,7 @@ class ProductController extends Controller
      */
     public function show(Product $producto)
     {
-        return view('productos.show',compact('producto'));
+        redirect()->route('producto.show');
     }
 
     /**
@@ -97,9 +73,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
-        $product= Product::where('id', $id)->first();
-        return view('producto.edit',compact('product','categories'));
+       $categories = Category::all();
+        //$product = Product::find($id);
+        //return view('producto.edit',compact('product','categories'));
+        //return redirect()->route('producto.show');
+        return view('index',compact('categories'));
+        
     }
 
     /**
@@ -127,7 +106,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         Product::destroy($id);
-
         return back();
     }
 }

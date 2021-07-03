@@ -57,9 +57,4 @@ class User extends Authenticatable
     public function tieneRol(){
         return $this->roles->flatten()->pluck('name')->unique();
     }
-
-    public function tienda()
-    {
-        return $this->hasOne(Store::class);
-    }
 }

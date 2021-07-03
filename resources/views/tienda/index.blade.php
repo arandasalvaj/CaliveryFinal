@@ -1,5 +1,5 @@
 @extends('layouts.plantilla')
-@section('seccion')
+@section('contenido')
 @can('Store')
 <div class="container-fluid px-4 ">
          <div class="row border border-secondary mb-4">
@@ -59,7 +59,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                       <div class="modal-header bg-warning ">
-                      <h5 class="modal-title " id="exampleModalLabel">Editar Producto</h5>
+                      <h5 class="modal-title " id="exampleModalLabel">Editar Tienda</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>

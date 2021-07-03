@@ -19,12 +19,9 @@ class StoreController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $store = User::find($user->id)->store;
+        $idTienda = Store::select('id')->where('user_id',$user->id)->first();
         $tienda = new Store();
-        $tienda= Store::all();
-        //$store = Store::paginate();
-        //return view('tienda.index')->with('tiendas');
-        
+        $tienda= Store::find($idTienda);
          return view('tienda.index')->with('tiendas',$tienda);
     }
 
@@ -42,14 +39,6 @@ class StoreController extends Controller
     //tienda.store
     public function store(Request $request)
     {
-       /* $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'cellphone' => 'required','max:11',
-            'email' => 'required',
-            'logo' => 'required',
-        ]);*/
-
         $users = Auth::user();
         $store = new Store();
         $store -> name = $request->name;
@@ -58,10 +47,8 @@ class StoreController extends Controller
         $store -> email =  $request->email;
         //$store -> logo = $request->logo;
         $store -> user_id = $users->id;
-        
         $store->save();
-
-        $rolU = role_user::where('user_id', '=', $users->id)->first();
+        $rolU = role_user::where('user_id', $users->id)->first();
         $rolU->role_id = 1;
         $rolU->save();
         return redirect()->route('tienda.index');
@@ -81,7 +68,6 @@ class StoreController extends Controller
      */
     public function edit(Store $tienda)
     {
-
         return view('tienda.edit')->with('tienda',Store::find($tienda));
     }
 
@@ -98,7 +84,6 @@ class StoreController extends Controller
         ]);
 
         $tienda->update($request->all());
-        //return redirect()->route('tienda.index');
         return back();
     }
 
@@ -109,7 +94,7 @@ class StoreController extends Controller
     {
         Store::destroy($id);
         $users = Auth::user();
-        $rolU = role_user::where('user_id', '=', $users->id)->first();
+        $rolU = role_user::where('user_id', $users->id)->first();
         $rolU->role_id = 2;
         $rolU->save();
         return redirect()->route('tienda.create');
