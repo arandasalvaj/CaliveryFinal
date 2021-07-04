@@ -1,4 +1,4 @@
-@extends('layouts.plantilla')
+@extends('layouts.layoutsC')
 @section('contenido')
 @can('Store')
 <div class="container-fluid px-4 ">

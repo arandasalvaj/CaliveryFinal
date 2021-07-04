@@ -37,8 +37,6 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        //$rol=$users->tieneRol->rol;
-        //$roles=Role::all();
         $user=Auth::user();
 
         $role=role_user::where('user_id',$user->id)->get();
@@ -54,30 +52,9 @@ class RegisterController extends Controller
                 return '/home';
             }
             if ($ro->name=='Seller') {
-                return '/home';
+                return 'tienda/create';
             }
         }
-
-
-        /*foreach (auth()->user() as $users ) {
-            
-            if ($users->tieneRol == 'Store') {
-                
-            }
-            if ($users->tieneRol == 'Seller') {
-                return '/tienda/create';
-            }
-            if ($users->tieneRol == 'Customer') {
-                return '/tienda/create';
-            }
-            if ($users->tieneRol == 'Delivery') {
-                return '/home';
-            }   
-            return '/';
-        }
-        return '/home';
-        */
-        
     }
     //protected $redirectTo = RouteServiceProvider::HOME;
 

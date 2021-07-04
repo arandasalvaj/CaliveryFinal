@@ -22,7 +22,7 @@ class StoreController extends Controller
         $idTienda = Store::select('id')->where('user_id',$user->id)->first();
         $tienda = new Store();
         $tienda= Store::find($idTienda);
-         return view('tienda.index')->with('tiendas',$tienda);
+        return view('tienda.index')->with('tiendas',$tienda);
     }
 
     /**
@@ -39,6 +39,7 @@ class StoreController extends Controller
     //tienda.store
     public function store(Request $request)
     {
+
         $users = Auth::user();
         $store = new Store();
         $store -> name = $request->name;
@@ -49,7 +50,7 @@ class StoreController extends Controller
         $store -> user_id = $users->id;
         $store->save();
         $rolU = role_user::where('user_id', $users->id)->first();
-        $rolU->role_id = 1;
+        $rolU->role_id = 5;
         $rolU->save();
         return redirect()->route('tienda.index');
         //return view('tienda.index',compact('store'));
@@ -95,7 +96,7 @@ class StoreController extends Controller
         Store::destroy($id);
         $users = Auth::user();
         $rolU = role_user::where('user_id', $users->id)->first();
-        $rolU->role_id = 2;
+        $rolU->role_id = 4;
         $rolU->save();
         return redirect()->route('tienda.create');
     }

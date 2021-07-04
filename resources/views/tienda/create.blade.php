@@ -1,4 +1,4 @@
-@extends('layouts.plantilla')
+@extends('layouts.layoutsC')
 @section('contenido')
 @can('Seller')
 <h1>Bienvenido, eres Vendedor y puedes crear tu tienda naaaaaaa</h1>

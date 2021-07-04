@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\role_user;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -30,25 +33,24 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        return redirect()->route('home');
-        /*
-        foreach (auth()->user() as $users ) {
-            if ($users->tieneRol == 'Store') {
-                return '/home';
-            }
-            if ($users->tieneRol == 'Seller') {
-                return '/tienda/create';
-            }
-            if ($users->tieneRol == 'Customer') {
-                return redirect()->route('home');
-            }
-            if ($users->tieneRol == 'Delivery') {
-                return '/home';
-            }   
-            return '/';
+        $user=Auth::user();
+
+        $role=role_user::where('user_id',$user->id)->get();
+
+        foreach($role as $rol){
+            $rolu=Role::where('id',$rol->role_id)->get();
         }
-        return '/tienda/create';
-        */
+        foreach($rolu as $ro){
+            if ($ro->name=='Customer') {
+                return '/home';
+            }
+            if ($ro->name=='Delivery') {
+                return '/home';
+            }
+            if ($ro->name=='Seller') {
+                return view('tienda.create');
+            }
+        }
         
     }
 

@@ -17,7 +17,7 @@ class CreateStoreDateTable extends Migration
             $table->id();
             $table->dateTime('open_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->dateTime('status');
+            $table->integer('status')->nullable();
             $table->unsignedBigInteger('store_id');
             $table->foreign('store_id')->references('id')->on('store')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

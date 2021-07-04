@@ -19,8 +19,8 @@ class CreateOrderTable extends Migration
             $table->integer("status");
             $table->integer("total_order");
             $table->integer("shipping_cost")->nullable();
-            $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('item')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

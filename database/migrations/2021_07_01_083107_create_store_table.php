@@ -13,15 +13,15 @@ class CreateStoreTable extends Migration
      */
     public function up()
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('store', function (Blueprint $table) {
             $table->id();
             $table->string("name",120);
             $table->string("address",120);
-            $table->integer("cellphone");
+            $table->integer("cellphone")->nullable();;
             $table->string("email",120);
             $table->text("banner",1024)->nullable();
             $table->text("logo",1024)->nullable(); 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
