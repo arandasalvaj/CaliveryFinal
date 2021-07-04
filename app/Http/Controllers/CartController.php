@@ -24,12 +24,13 @@ class CartController extends Controller
         $user=Auth::user();
 
         $Carts=Cart::where('user_id',$user->id)->get();
-        
+        $total=0;
         foreach ($Carts as $cart) {
             $products= Product::where('id',$cart->product_id)->get();
+            $total=$cart->subtotal+$total;
         }
 
-        return view('carro.index',compact('contador','products','Carts'));
+        return view('carro.index',compact('contador','products','Carts','total'));
     }
 
     /**

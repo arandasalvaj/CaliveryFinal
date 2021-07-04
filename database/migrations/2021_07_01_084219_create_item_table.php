@@ -18,11 +18,14 @@ class CreateItemTable extends Migration
             $table->string("name",64);
             $table->integer("quantity");
             $table->integer("price");
+            $table->text("detail",300);
             $table->text("img",1024)->nullable(); 
-            $table->string("color",64);
-            $table->string("size",64);
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('order')->onDelete('cascade')->onUpdate('cascade');
+            $table->string("color",64)->nullable(); 
+            $table->string("size",64)->nullable(); 
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

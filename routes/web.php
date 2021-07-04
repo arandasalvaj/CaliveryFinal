@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Auth;
@@ -32,4 +33,5 @@ Route::resource('/tienda',StoreController::class);
 Route::resource('/categorias',CategoryController::class);
 Route::resource('/cart',CartController::class);
 Route::resource('/producto',ProductController::class);
+Route::resource('/orden',OrderController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

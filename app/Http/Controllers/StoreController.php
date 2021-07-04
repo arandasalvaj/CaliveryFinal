@@ -50,7 +50,7 @@ class StoreController extends Controller
         $store -> user_id = $users->id;
         $store->save();
         $rolU = role_user::where('user_id', $users->id)->first();
-        $rolU->role_id = 5;
+        $rolU->role_id = 3;
         $rolU->save();
         return redirect()->route('tienda.index');
         //return view('tienda.index',compact('store'));
@@ -96,7 +96,7 @@ class StoreController extends Controller
         Store::destroy($id);
         $users = Auth::user();
         $rolU = role_user::where('user_id', $users->id)->first();
-        $rolU->role_id = 4;
+        $rolU->role_id = 2;
         $rolU->save();
         return redirect()->route('tienda.create');
     }
