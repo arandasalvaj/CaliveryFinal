@@ -18,7 +18,7 @@ class CreateItemTable extends Migration
             $table->string("name",64);
             $table->integer("quantity");
             $table->integer("price");
-            $table->text("img",1000)->nullable(); 
+            $table->text("img",1024)->nullable(); 
             $table->string("color",64);
             $table->string("size",64);
             $table->unsignedBigInteger('order_id');

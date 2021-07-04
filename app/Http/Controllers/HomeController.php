@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -23,6 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if ($user = Auth::user()) {
+            $contador = Cart::where('user_id', $user->id)->count();
+        }else{
+            $contador = 0;
+        }
+        Auth::user();
+        $products=Product::all();
+        return view('home', compact('products','contador'));
+        
     }
 }

@@ -11,12 +11,23 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    <div class="container-fluid bg-success">
+        <div class="row d-flex justify-content-end">
+            <a class="nav-link px-4" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
+
+            <a class="nav-link px-4" href="{{ route('register') }}">{{ __('Regístrarse') }}</a>
+
+            <a class="nav-link px-4" href="#">Mi Cuenta</a>
+        </div>
+    </div>
     <nav class="navbar navbar-warning bg-warning">
-      <a class="navbar-brand">Navbar</a>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      <a class="navbar-brand">Calivery</a>
+      <div class="rol justify-content-center">
+        <form class="form-inline  ">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
     </nav>
     @yield('contenido')
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

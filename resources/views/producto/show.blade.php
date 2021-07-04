@@ -40,8 +40,6 @@
     </div>
 </div>
 @include('producto.create')
-
-
 HOLA
 @endsection
 @endcan

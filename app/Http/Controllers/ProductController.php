@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,8 @@ class ProductController extends Controller
         $store = Store::where('user_id', $user->id)->get();
         foreach($store as $tienda){$products = Product::where('store_id', $tienda->id)->get();}
         $products = Product::all();
-        return view('producto.ayuda',compact('products','categories', 'store'));
+        //return view('producto.index',compact('products','categories', 'store'));
+        return view('producto.index',compact('products','categories'));
     }
 
     /**
@@ -43,8 +45,14 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'detail' => 'required',
+            'img' => ['required', 'image', 'max:1000'],
         ]);
+        $imagen=$request -> img->store('public/imagenes');
+
+        $url= Storage::url($imagen);
+
         $user = Auth::user();
+
         $producto = new Product();
         $idTienda = Store::select('id')->where('user_id',$user->id)->first();
         $producto -> name = $request->name;
@@ -52,7 +60,7 @@ class ProductController extends Controller
         $producto -> stock = $request->stock;
         $producto -> detail = $request->detail;
         $producto -> status = 1;
-        $producto -> img = $request -> img;
+        $producto -> img = $url;
         $producto -> category_id = $request->category_id;
         $producto -> store_id = $idTienda->id;
         $producto->save();
@@ -77,7 +85,7 @@ class ProductController extends Controller
         //$product = Product::find($id);
         //return view('producto.edit',compact('product','categories'));
         //return redirect()->route('producto.show');
-        return view('index',compact('categories'));
+        return view('producto.edit');
         
     }
 

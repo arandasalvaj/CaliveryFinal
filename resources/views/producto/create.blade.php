@@ -1,5 +1,5 @@
 @can('Store')
-@section('contenido')
+@section('modal')
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-          <form action="{{route('producto.store')}}" method="POST">
+          <form action="{{route('producto.store')}}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="row py-2">
                 <div class="col">
@@ -39,7 +39,10 @@
               <div class="row py-2">
                   <div class="col">
                       <label for="">Seleccione una imagen:</label>
-                      <input type="file" name="img"">
+                      <input type="file" name="img" accept="image/*">
+                      @error('file')
+                          <small class="text-danger">{{message}}</small>
+                      @enderror
                     </div>
                     <div class="col">
                     </div>

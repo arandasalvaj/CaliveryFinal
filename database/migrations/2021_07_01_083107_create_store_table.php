@@ -19,8 +19,8 @@ class CreateStoreTable extends Migration
             $table->string("address",120);
             $table->integer("cellphone");
             $table->string("email",120);
-            $table->text("banner",1000)->nullable();
-            $table->text("logo",1000)->nullable(); 
+            $table->text("banner",1024)->nullable();
+            $table->text("logo",1024)->nullable(); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

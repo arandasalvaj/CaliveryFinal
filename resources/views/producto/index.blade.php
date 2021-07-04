@@ -1,4 +1,4 @@
-@extends('layouts.plantilla')
+@extends('layouts.layoutsV')
 @can('Store')
 @section('contenido')
 <div class="container-fluid px-4 ">
@@ -10,6 +10,7 @@
         <table class="table table-bordered text-center ">
             <tr>
                 <th>ID</th>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Stock</th>
@@ -17,8 +18,10 @@
             </tr>
             
                 <tr>   
+                    
                     @foreach ($products as $product)
                     <td>{{$product->id}}</td>
+                    <td><img src="{{asset($product->img)}}" alt=""></td>
                     <td>{{$product->name}}</td>
                     <td>${{$product->price}}</td>
                     <td>{{$product->stock}}</td>
@@ -34,11 +37,12 @@
                     </td>
                 </tr>
                 @endforeach
-
         </table>
         <!--------FIN TABLA------>
     </div>
 </div>
-@include('producto.create')
 @endsection
+    @section('modal')
+        @include('producto.create')
+    @endsection
 @endcan

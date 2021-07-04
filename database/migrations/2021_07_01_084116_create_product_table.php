@@ -20,7 +20,7 @@ class CreateProductTable extends Migration
             $table->integer("price");
             $table->text("detail",300)->nullable();
             $table->integer("status")->default(0);
-            $table->text("img",1000)->nullable(); 
+            $table->text("img",1024)->nullable(); 
             $table->string("size",64);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category')->onUpdate('cascade');

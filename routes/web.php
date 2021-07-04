@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -29,5 +30,6 @@ Route::post('/registro-repartidor', [App\Http\Controllers\Auth\RegisterControlle
 
 Route::resource('/tienda',StoreController::class);
 Route::resource('/categorias',CategoryController::class);
+Route::resource('/cart',CartController::class);
 Route::resource('/producto',ProductController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

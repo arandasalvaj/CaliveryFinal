@@ -26,7 +26,31 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected function redirectTo()
+    {
+        return redirect()->route('home');
+        /*
+        foreach (auth()->user() as $users ) {
+            if ($users->tieneRol == 'Store') {
+                return '/home';
+            }
+            if ($users->tieneRol == 'Seller') {
+                return '/tienda/create';
+            }
+            if ($users->tieneRol == 'Customer') {
+                return redirect()->route('home');
+            }
+            if ($users->tieneRol == 'Delivery') {
+                return '/home';
+            }   
+            return '/';
+        }
+        return '/tienda/create';
+        */
+        
+    }
 
     /**
      * Create a new controller instance.
