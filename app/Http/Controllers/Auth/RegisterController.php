@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\role_user;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -35,9 +37,32 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        /*foreach (auth()->user() as $users ) {
-            if ($users->tieneRol == 'Store') {
+        //$rol=$users->tieneRol->rol;
+        //$roles=Role::all();
+        $user=Auth::user();
+
+        $role=role_user::where('user_id',$user->id)->get();
+
+        foreach($role as $rol){
+            $rolu=Role::where('id',$rol->role_id)->get();
+        }
+        foreach($rolu as $ro){
+            if ($ro->name=='Customer') {
                 return '/home';
+            }
+            if ($ro->name=='Delivery') {
+                return '/home';
+            }
+            if ($ro->name=='Seller') {
+                return '/home';
+            }
+        }
+
+
+        /*foreach (auth()->user() as $users ) {
+            
+            if ($users->tieneRol == 'Store') {
+                
             }
             if ($users->tieneRol == 'Seller') {
                 return '/tienda/create';
@@ -50,8 +75,9 @@ class RegisterController extends Controller
             }   
             return '/';
         }
+        return '/home';
         */
-        return '/tienda/create';
+        
     }
     //protected $redirectTo = RouteServiceProvider::HOME;
 
@@ -93,12 +119,13 @@ class RegisterController extends Controller
                     : redirect($this->redirectPath());
     }
 
+
     public function registerDelivery(Request $request)
     {
         $role=Role::firstOrCreate(['name'=>'Delivery']);
-        $this->validatorD($request->all())->validate();
+        $this->validatorS($request->all())->validate();
 
-        event(new Registered($user = $this->createD($request->all())));
+        event(new Registered($user = $this->createS($request->all())));
 
         $this->guard()->login($user);
 
@@ -113,26 +140,32 @@ class RegisterController extends Controller
                     : redirect($this->redirectPath());
     }
 
-    protected function validator(array $data)
+    public function register(Request $request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:64'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'lastname' => ['required', 'string', 'max:64'],
-            'address' => ['required', 'string', 'max:64'],
+        $role=Role::firstOrCreate(['name'=>'Customer']);
+        $this->validatorC($request->all())->validate();
 
-        ]);
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        $user->asignarRol($role);
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
-    protected function validatorD(array $data)
+    protected function validatorC(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:64'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'lastname' => ['required', 'string', 'max:64'],
-            'rut' => ['required', 'max:11'],
-
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
     protected function validatorS(array $data)
@@ -155,17 +188,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'address' => $data['address'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
-    protected function createD(array $data)
-    {
-        return User::create([
-            'rut' => $data['rut'],
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],

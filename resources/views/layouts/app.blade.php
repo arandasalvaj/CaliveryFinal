@@ -53,7 +53,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
                                 </li>
                             @endif
 
@@ -64,12 +64,12 @@
                             @endif
                             @if (Route::has('registerD'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('registerD') }}">{{ __('Regístrar Repartidor') }}</a>
+                                <a class="nav-link" href="{{ route('registerD') }}">{{ __('Repartidor') }}</a>
                             </li>
                             @endif
                             @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Regístrar Vendedor') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Vendedor') }}</a>
                             </li>
                             @endif
                         @else
