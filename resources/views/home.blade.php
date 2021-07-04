@@ -33,7 +33,7 @@
                 @csrf 
                 <input type="hidden" name="product_id" value="{{$product->id}}">
                 <div class="options d-flex flex-fill py-2">
-                    <input type="number" name="quantity" min="1" max="{{($product->stock)}}" value="1">
+                    <input placeholder="Enter a number" required type="number" name="quantity" min="1" max="{{($product->stock)}}" value="1">
                  </div>
                 <button type="submit" class="btn btn-primary">Añadir al carro</button>
             </form>

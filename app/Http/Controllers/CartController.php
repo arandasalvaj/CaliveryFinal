@@ -129,7 +129,12 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $carts=Cart::find($id);
+        $product=Product::find($carts->product_id);
+        $carts->quantity=$request->quantity;
+        $carts->subtotal= $product->price*$request->quantity;
+        $carts->save();
+        return back();
     }
 
     /**
