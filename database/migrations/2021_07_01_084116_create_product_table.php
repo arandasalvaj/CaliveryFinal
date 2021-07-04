@@ -22,7 +22,7 @@ class CreateProductTable extends Migration
             $table->integer("status")->default(0);
             $table->text("img",1024)->nullable(); 
             $table->string("color",64)->nullable(); 
-            $table->string("size",64);
+            $table->string("size",64)->nullable();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('category')->onUpdate('cascade');
             $table->unsignedBigInteger('store_id');

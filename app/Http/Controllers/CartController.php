@@ -23,24 +23,13 @@ class CartController extends Controller
         }
         $user=Auth::user();
 
-        $Carts=Cart::where('user_id',$user->id)->get();//2
-
-        $cantidadC=0;
-
+        $Carts=Cart::where('user_id',$user->id)->get();
+        
         foreach ($Carts as $cart) {
             $products= Product::where('id',$cart->product_id)->get();
-            $cantidadC=$cantidadC+$cart->quantity;
         }
 
-        /*
-         $cantidadC=$cart->quantity;
-        $total=0;
-
-        foreach ($products as $product) {
-            $cantidadC=$cantidadC*$product->price;
-        }
-        */
-        return view('carro.index',compact('contador','products','cantidadC'));
+        return view('carro.index',compact('contador','products','Carts'));
     }
 
     /**
@@ -107,46 +96,6 @@ class CartController extends Controller
             } 
             return back()->with('contador',$contador);
         }
-        
-        return $cartNew;
-        //if ($pregunta===null) {
-            /*
-            $products= Product::where('id',$request->product_id)->get();
-
-            foreach ($products as $product) {
-                $precio = $product->price; 
-            } 
-            $cantidad =$request->quantity;
-    
-            $valor = $precio* $cantidad;
-    
-            $carrito= new Cart();
-            $carrito->quantity = $request->quantity;
-            $carrito->subtotal = $valor;
-            $carrito->product_id = $request->product_id;
-            $carrito->user_id = $user->id;
-            $carrito->save();
-            */
-        //} else {
-
-            //$carts= Cart::where('product_id',$request->product_id)->get(); 
-            //$cartNew=new Cart();
-
-            //    foreach ($carts as $cart) {
-            //        $cartNew->quantity = $cart->quantity + $request->quantity;
-            //        $cartNew->subtotal = $cart->subtotal + $request->subtotal;
-             //       $cartNew->save();
-             //   } 
-        //}   
-
-        
-
-
-
-
-        
-
-        //return back()->with('contador',$contador);
     }
 
     /**

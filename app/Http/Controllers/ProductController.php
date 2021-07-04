@@ -85,7 +85,7 @@ class ProductController extends Controller
         //$product = Product::find($id);
         //return view('producto.edit',compact('product','categories'));
         //return redirect()->route('producto.show');
-        return view('producto.edit');
+        return view('producto.edit',compact('categories'));
         
     }
 

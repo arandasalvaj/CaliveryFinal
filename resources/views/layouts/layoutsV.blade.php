@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <title>Hello, world!</title>
@@ -24,13 +25,19 @@
       <a class="navbar-brand">Calivery</a>
       <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item ">
-          <a class="nav-link" href="{{route('cart.index')}}">Carro de compras <span class="badge badge-danger ">{{$contador}}</span></a>
+          <a href="{{route('producto.index')}}">Productos</a>
         </li>
+      </ul>
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item ">
+          <a href="{{route('tienda.index')}}">Tienda</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               {{Auth::user()->name }}
           </a>
-
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ route('logout') }}"
                  onclick="event.preventDefault();
@@ -42,8 +49,7 @@
                   @csrf
               </form>
           </div>
-      </li>
-        </ul>
+        </li>
       </ul>
     </nav>
     @yield('contenido')

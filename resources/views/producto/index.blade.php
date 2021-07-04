@@ -16,12 +16,14 @@
                 <th>Stock</th>
                 <th width="280px">Actions</th>
             </tr>
-            
                 <tr>   
-                    
                     @foreach ($products as $product)
                     <td>{{$product->id}}</td>
-                    <td><img src="{{asset($product->img)}}" alt=""></td>
+                    <td>
+                    <div class="card mx-auto" style="width: 18rem;">
+                        <img src="{{asset($product->img)}}" class="card-img-top" alt="">
+                        </div>
+                    </td>
                     <td>{{$product->name}}</td>
                     <td>${{$product->price}}</td>
                     <td>{{$product->stock}}</td>
@@ -33,7 +35,11 @@
                         <button type="submit" class="btn btn-danger">Eliminar</button>
 
                     </form>
-                    <a class="btn btn-primary" href="{{ route('producto.edit',$product->id)}}">Editar</a>
+                    <form action="{{ route('producto.edit',$product->id)}}" method="GET">
+                        @csrf
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModalLabel">Editar</button>
+
+                    </form>
                     </td>
                 </tr>
                 @endforeach

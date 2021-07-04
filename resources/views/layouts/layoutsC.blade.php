@@ -23,6 +23,14 @@
     <nav class="navbar navbar-warning bg-warning">
       <a class="navbar-brand">Calivery</a>
       <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item ">
+          <a href="{{route('home')}}">Inicio</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item ">
+          <a class="nav-link" href="{{route('cart.index')}}">Carro de compras <span class="badge badge-danger ">{{$contador}}</span></a>
+        </li>
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               {{Auth::user()->name }}

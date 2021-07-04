@@ -1,4 +1,4 @@
-@extends('layouts.layoutsV')
+@extends('layouts.layoutsC')
 @section('contenido')
 <div class="container-fluid bg-danger">
     <div class="row">
@@ -33,13 +33,7 @@
                 @csrf 
                 <input type="hidden" name="product_id" value="{{$product->id}}">
                 <div class="options d-flex flex-fill py-2">
-                    <select name="quantity" class="md-form mdb-select colorful-select dropdown-primary">
-                       <option selected>Cantidad</option>
-                         <option value="1">1</option>
-                         <option value="2">2</option>
-                         <option value="3">3</option>
-                         <option value="4">4</option>
-                   </select>
+                    <input type="number" name="quantity" min="1" max="{{($product->stock)}}" value="1">
                  </div>
                 <button type="submit" class="btn btn-primary">Añadir al carro</button>
             </form>

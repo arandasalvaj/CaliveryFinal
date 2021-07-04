@@ -1,4 +1,4 @@
-@extends('layouts.layoutsV')
+@extends('layouts.layoutsC')
 @can('Customer')
 @section('contenido')
     <div class="container">
@@ -12,14 +12,15 @@
                     <th>Subtotal</th>
                     </thead>
                     <tbody>
-                       @foreach ($products as $product)
+                       @foreach ($Carts as $Cart)
                         <tr>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->price}}</td>
-                            <td>{{$cantidadC}}</td>    
-                            <td>0</td>
+                            <td>{{$Cart->productos->name}}</td>
+                            <td>{{$Cart->productos->price}}</td>
+                            <td>{{$Cart->quantity}}</td>    
+                            <td>{{$Cart->subtotal}}</td>
+                        
                         </tr>    
-                        @endforeach                  
+                        @endforeach                   
                         </tbody>
                 </table>
             </div>
