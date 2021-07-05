@@ -45,23 +45,20 @@ class OrderController extends Controller
         $order=new Order();
 
         $order->order_date=$date->toDateTimeString();////
-        $order->status=1;////
-        $order->total_order=$request->total;////
-        $order->shipping_cost=1500;////
+        $order->status=0;////PARA CREAR LA ORDEN SE NECESITA QUE EL ESTADO ESTE EN 0,CUANDO PAGE SE CAMBIARA A 1(PAGADO) EL SDK DEVUELVE TRUE O FALSO (PAGADO)
+        $order->total_order=precioTotal();////
+        $order->shipping_cost=precioEnvio();////
         $order->user_id=$user->id;
         $order->save();
 
         $idOrden=$order->id;
 
         $Carts=Cart::where('user_id',$user->id)->get();
-        $total=0;
-        
         foreach ($Carts as $cart) {
             $products= Product::where('id',$cart->product_id)->get();
-            $total=$cart->subtotal+$total;
         }
 
-        return view('orden.index',compact('products','Carts','total','user','idOrden'));
+        return view('orden.index',compact('products','Carts','user','idOrden'));
 
          
         //return view('orden.index');
@@ -76,6 +73,12 @@ class OrderController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function completado()
+    {
+        vaciarCarro();
+        return view('orden.completado');
     }
 
     /**

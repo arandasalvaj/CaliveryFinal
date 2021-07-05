@@ -72,7 +72,7 @@
 
                     </div>
                     <div class="col-2 ">
-                        <h6><h6>{{$total}}</h6></h6>
+                        <h6><h6>{{$cart->subtotal}}</h6></h6>
 
                     </div> 
                     @endforeach
@@ -86,11 +86,13 @@
             <div class="card ">
                 <div class="card-body px-5">
                     <div class="float-right">
-                        
-                        <h6>SubTotal:$321312</h6> 
-                        <h6>Envio:$321312</h6> 
-                        <h3>Total:$1500</h3>
-                    <button type="submit" class="btn btn-primary"> Pagar</button>
+                        <h6>Subtotal:${{subTotal()}}</h6>
+                        <h6>Total de Envio:${{precioEnvio()}}</h6>
+                        <h3>Total:${{precioTotal()}}</h3>
+                        <form action="{{route('ordenTerminada')}}" method="GET">
+                            @csrf
+                        <button type="submit" class="btn btn-primary">Pagar</button>
+                        </form>
                     </div>
                     
                 </div>

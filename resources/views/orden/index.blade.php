@@ -83,29 +83,29 @@
                 <div class="container">
                     <hr class="my-auto flex-grow-1 ">
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-8">
-                        <h5>Subtotal</h5>
+                        <h5>Subtotal:</h5>
                     </div>
                     <div class="col-4">
-                        <h5>${{$total}}</h5>
+                        <h5>${{subTotal()}}</h5>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-8">
-                        <h5>Envío</h5>
+                        <h5>Envío:</h5>
                     </div>
                     <div class="col-4">
-                        <h5>$1500</h5>
+                        <h5>${{precioEnvio()}}</h5>
                     </div>
                 </div>
                 <hr class="my-auto flex-grow-1 pt-3">
                 <div class="row">
                     <div class="col-8">
-                        <h4>Total</h4>
+                        <h4>Total:</h4>
                     </div>
                     <div class="col-4">
-                        <h5>${{$total}}</h5>
+                        <h5>${{precioTotal()}}</h5>
                     </div>
                 </div>
             </div>

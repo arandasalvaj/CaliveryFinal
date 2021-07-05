@@ -16,17 +16,14 @@ class CartController extends Controller
      */
     public function index()
     {
-
         $user=Auth::user();
 
         $Carts=Cart::where('user_id',$user->id)->get();
-        $total=0;
         foreach ($Carts as $cart) {
             $products= Product::where('id',$cart->product_id)->get();
-            $total=$cart->subtotal+$total;
         }
 
-        return view('carro.index',compact('products','Carts','total'));
+        return view('carro.index',compact('products','Carts'));
     }
 
     /**
@@ -95,11 +92,14 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('carro.index'); 
     }
-
+    public function showCart()
+    {
+        return view('carro.index'); 
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -136,15 +136,12 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cart::destroy($id);
+        return back();
     }
 
     public function destroyCart(Cart $cart)
     {
-        $carts=Cart::all();
-        foreach($carts as $cart){
-            Cart::destroy($cart->id);
-        }
-        return back();
+        
     }
 }
