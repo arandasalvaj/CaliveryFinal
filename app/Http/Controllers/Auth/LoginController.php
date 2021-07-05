@@ -45,10 +45,13 @@ class LoginController extends Controller
                 return '/home';
             }
             if ($ro->name=='Delivery') {
-                return '/home';
+                return redirect()->route('dashboard');
             }
             if ($ro->name=='Seller') {
-                return view('tienda.create');
+                return redirect()->route('dashboard');
+            }
+            if ($ro->name=='Store') {
+                return view('/dashboard');
             }
         }
         

@@ -2,8 +2,8 @@
 @section('contenido')
 @can('Store')
 <div class="container-fluid px-4 ">
-         <div class="row border border-secondary mb-4">
-          <div class="card-body">
+         <div class="row border border-secondary mb-4 shadow p-3 mb-5 bg-white rounded">
+          <div class="card-body ">
             <div class="col-md-4 mb-3">
             @foreach ($tiendas as $store)
               <label">Nombre:</label>
@@ -21,8 +21,6 @@
               <label >Correo de contacto:</label>
               <h3>{{$store->email }}</h3>
             </div>  
-          </div> 
-         </div> 
               <!---Inicio Tabla-->
               <table class="table table-bordered ">
                   <tr>
@@ -84,12 +82,6 @@
                               <div class="col">
                                   <label for="">Telefono</label>
                                   <input type="text" class="form-control" value="{{$store->cellphone}}" name="cellphone">
-                                </div>
-                          </div>
-                          <div class="row py-2">
-                              <div class="col">
-                                  <label for="">Email</label>
-                                  <input type="email" class="form-control" value="{{$store->email}}" name="email">
                                 </div>
                           </div>
                         

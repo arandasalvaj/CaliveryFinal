@@ -8,13 +8,17 @@ use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        
     }
+
+
 
     public function index()
     {
@@ -32,7 +36,10 @@ class StoreController extends Controller
     {
         return view('tienda.create');
     }
-
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -40,13 +47,16 @@ class StoreController extends Controller
     public function store(Request $request)
     {
 
+
         $users = Auth::user();
+        //$imagen=$request->img->store('public/imagenes');
+        //$url= Storage::url($imagen);
         $store = new Store();
         $store -> name = $request->name;
         $store -> address = $request->address;
         $store -> cellphone = $request->cellphone;
-        $store -> email =  $request->email;
-        //$store -> logo = $request->logo;
+        $store -> email =  $users->email;
+        //$store -> logo = $url;
         $store -> user_id = $users->id;
         $store->save();
         $rolU = role_user::where('user_id', $users->id)->first();
@@ -81,7 +91,6 @@ class StoreController extends Controller
             'name' => 'required',
             'address' => 'required',
             'cellphone' => 'required',
-            'email' => 'required',
         ]);
 
         $tienda->update($request->all());

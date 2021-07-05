@@ -13,21 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">   
-                {{-- Barra de búsqueda. --}}    
-                <li>
-                    
-                    <div class="input-group my-2 my-lg-0">
-                        <input type="text" class="form-control" size="50" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="basic-addon2">
-                        <span class="input-group-append">
-                          <button class="btn btn-outline-secondary border-left-0 border" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="color: white;" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                          </svg>
-                          </button>
-                        </span>
-                    </div>
-                </li>       
-            </ul>
+
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -35,17 +21,19 @@
                 <!-- Authentication Links -->
                 {{-- @guest --}}
                 <!-- Inicio - Tienda van en el home de la page -->
+             
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/tienda') }}">{{ __('Mis Ordenes') }}</a>
+                    <a class="nav-link" href="{{ route('ordenesCliente') }}">{{ __('Tiendas') }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/tienda') }}">{{ __('Tiendas') }}</a>
-                </li>
+
                 <!-- Aca inicia la autentificación -->
                 @auth
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('ordenesCliente') }}">{{ __('Mis Ordenes') }}</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Salir') }}</a>
                     </li>
@@ -77,49 +65,6 @@
                     @endif
 
                 @endauth
-                    {{-- @endif --}}
-
-                    {{-- @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
-                        </li>
-                    @endif
-
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Regístrarse') }}</a>
-                        </li>
-                    @endif
-                    @if (Route::has('registerD'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('registerD') }}">{{ __('Regístrar Repartidor') }}</a>
-                    </li>
-                    @endif
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Regístrar Vendedor') }}</a>
-                    </li>
-                    @endif --}}
-
-                     {{-- @else --}}
-                    {{-- <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li> --}}
-                {{-- @endguest --}}
             </ul>
         </div>
     </div>

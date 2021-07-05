@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,21 @@ function precioEnvio(){
         return $total=1500;
     }
 }
+function precioEnvioOrden($quantity){
+
+    $total=$quantity;
+    if ($total>2) {
+        $total=$total;
+        $total=$total/2;
+        $total=round($total, 0, PHP_ROUND_HALF_DOWN);
+        $total=$total*500;
+        $total=$total+1500;
+        return $total;
+    }else{
+        return $total=1500;
+    }
+}
+
 function precioTotal(){
 
     $user=Auth::user();
@@ -78,4 +94,14 @@ function vaciarCarro(){
     foreach($carts as $cart){
         Cart::destroy($cart->id);
     }
+}
+
+function ordenesC(){
+    $user=Auth::user();
+    $ordenes= Order::where('user_id',$user->id)->get();
+    return $ordenes;
+}
+function productos(){
+    $products=Product::all();
+    return $products;
 }

@@ -4,17 +4,19 @@
 <div class="container-fluid">
     <div class="row my-5 mx-5 px-2">
         <div class="col-sm-7">
-            <div class="col pb-5">
-                <div class="card ">
+            <div class="col pb-2">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
                     <div class="card-body px-5">
-                        <h3>Informació de contacto:ID de la Orden:{{$idOrden}}</h3>
+                        <div class="div text-center">
+                            <h3>Información de contacto</h3>
+                        </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Nombre de Contacto</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" value="{{$user->name}} {{$user->lastname}}">
+                            <input type="email" class="form-control" name="name" value="{{$user->name}} {{$user->lastname}}">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Telefono de Contacto</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" 
+                            <input type="email" class="form-control" name="cellphone"" 
                             @if($user->cellphone=='')
                             placeholder="Ingrese Telefono de contacto"
                             @endif value="{{$user->cellphone}}">
@@ -24,15 +26,17 @@
             </div>
 
             <div class="col">
-                <div class="card ">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
                     <div class="card-body px-5">
-                        <h3>Ingrese Dirección</h3>
+                        <div class="div text-center">
+                            <h3>Ingrese Dirección</h3>
+                        </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Calle</label>
                             <input type="email" class="form-control" id="exampleFormControlInput1" value="" placeholder="Ingrese Calle">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">N* de Casa</label>
+                            <label for="exampleFormControlInput1">N° de Casa</label>
                             <input type="email" class="form-control" id="exampleFormControlInput1" 
                             @if($user->cellphone=='')
                             placeholder="Ingrese Numero de casa"
@@ -41,23 +45,10 @@
                     </div>
                 </div>
             </div>
-            <form action="{{route('item.store')}}" method="POST">
-                @csrf
-                <div class="col">
-                    <div class="col-12 px-4 mt-3">
-                        <button class="btn btn-primary">Continuar con la compra</button>   
-                    </div>
-                </div>
-                <input type="hidden" name="idOrden" value="{{$idOrden}}">
-            </form>
-
         </div>
 
-
-
-        
     <div class="col-sm-5">
-        <div class="card ">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
             <div class="card-body px-5">
                <div class="row px-3"> <h3>Detalles del pedido</h3></div>
                <hr class="my-auto flex-grow-1">
@@ -108,6 +99,15 @@
                         <h5>${{precioTotal()}}</h5>
                     </div>
                 </div>
+                <form action="{{route('item.store')}}" method="POST">
+                    @csrf
+                    <div class="col">
+                        <div class="col-12 px-4 mt-3">
+                            <button class="btn btn-primary btn-lg btn-block">Continuar con la compra</button>   
+                        </div>
+                    </div>
+                    <input type="hidden" name="idOrden" value="{{$idOrden}}">
+                </form>
             </div>
           </div>
     </div>

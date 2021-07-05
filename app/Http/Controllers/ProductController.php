@@ -22,7 +22,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $store = Store::where('user_id', $user->id)->get();
         foreach($store as $tienda){$products = Product::where('store_id', $tienda->id)->get();}
-        $products = Product::all();
+       
         //return view('producto.index',compact('products','categories', 'store'));
         return view('producto.index',compact('products','categories'));
     }
@@ -51,9 +51,7 @@ class ProductController extends Controller
         $imagen=$request -> img->store('public/imagenes');
 
         $url= Storage::url($imagen);
-
         $user = Auth::user();
-
         $producto = new Product();
         $idTienda = Store::select('id')->where('user_id',$user->id)->first();
         $producto -> name = $request->name;
@@ -82,11 +80,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-       $categories = Category::all();
-        //$product = Product::find($id);
-        //return view('producto.edit',compact('product','categories'));
+        $categories = Category::all();
+        $product = Product::find($id);
+        return view('producto.edit',compact('product','categories'));
         //return redirect()->route('producto.show');
-        return view('producto.edit',compact('categories'));
+        //return view('producto.edit',compact('categories'));
         
     }
 
@@ -95,13 +93,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $producto)
     {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-            'detail' => 'required',
-            
-        ]);
+
+        
+        $producto = Product::find($producto->id);
         
         $producto->update($request->all());
         //return redirect()->route('tienda.index');
@@ -114,10 +108,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $carts=Cart::all();
-        foreach($carts as $cart){
-            Product::destroy($cart->id);
-        }
+        Product::destroy($id);
+
         return back();
     }
 }

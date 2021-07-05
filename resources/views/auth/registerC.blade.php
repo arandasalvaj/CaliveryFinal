@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header text-center" style="background-color: #ff9b22;"><h4>Bienvenido Registrate</h4></div>
                 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -72,13 +72,34 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
+                                
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Registrar') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+                    
+                <div class="div py-3">
+                    <hr class="my-auto flex-grow-1 pt-3">
                 </div>
+                    
+                </div>
+                <div class="col 12 text-center mb-5">
+                    @if (Route::has('registerD'))
+                        <a class="btn btn-primary mx-3" href="{{ route('registerD') }}">{{ __('Repartidor') }}</a>
+                    @endif
+                    @if (Route::has('registerS'))
+                        <a class="btn btn-primary mx-3" href="{{ route('registerS') }}">{{ __('Vendedor') }}</a>
+                    @endif
+                </div>
+                <div class="div py-3">
+                    <hr class="my-auto flex-grow-1 pt-3">
+                </div>
+                <div class="col 12 text-center mb-5">
+                    <a class="btn btn-primary mx-3" href="{{ route('login') }}">{{ __('Iniciar sesion') }}</a>
+                </div>
+            </div>
             </div>
         </div>
     </div>

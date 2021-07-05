@@ -1,34 +1,45 @@
 @extends('layouts.layoutsV')
 @section('contenido')
 @can('Seller')
-<h1>Bienvenido, eres Vendedor y puedes crear tu tienda naaaaaaa</h1>
-    <div class="container-fluid px-4">
+    <div class="container px-auto ">
+      
         <h1 class="mt-4">Crea tu tienda</h1>
           <form action="{{ route('tienda.store') }}" method="POST"> 
             @csrf  
              <div class="row">
-              <div class="card-body">
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault01">Nombre:</label>
-                  <input type="text" class="form-control" id="validationDefault01" name="name" placeholder="Nombre" required>
+              <div class="card-body shadow p-3 mb-5 bg-white rounded">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Nombre</label>
+                  <input type="text" class="form-control" name="name" placeholder="Ingrese Nombre">
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault01">Dirección:</label>
-                  <input type="text" class="form-control" id="validationDefault02" name="address" placeholder="Dirección" required>
-                </div> 
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault01">Telefono:</label>
-                  <input type="text" class="form-control" id="validationDefault04" name="cellphone" placeholder="Telefono" required>
-                </div> 
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault01">Correo de contacto:</label>
-                  <input type="email" class="form-control" id="validationDefault05" name="email" value="{{ Auth::user()->email }}" placeholder="Correo" required>
-                </div>  
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="logo" id="customFile">
-                  <label class="custom-file-label" for="customFile">sube tu banner</label>
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Dirección</label>
+                  <input type="text" class="form-control" name="address" placeholder="Ingrese Dirección">
                 </div>
-                <button type="submit" class="btn btn-primary">Crear</button> 
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Telefono</label>
+                  <input type="text" class="form-control" name="cellphone" placeholder="Ingrese Telefono"">
+                </div>
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Banner</label>
+                  <input type="file" name="img" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block my-4">Crear</button> 
               </div>       
           </form>
     </div>

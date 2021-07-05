@@ -2,10 +2,10 @@
 @can('Store')
 @section('contenido')
 <div class="container-fluid px-4 ">
-    <div class="row mb-4">
-        <div class="row mb-4">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Registrar producto</button>
-        </div>
+    <div class="row mb-4 shadow-lg p-3 mb-5 bg-white rounded">
+
+        <button type="button" class="btn btn-primary btn-lg btn-block my-4" data-toggle="modal" data-target="#exampleModal">Registrar producto</button>
+        
         <!--------INICIO TABLA------>
         <table class="table table-bordered text-center ">
             <tr>
@@ -37,8 +37,9 @@
                     </form>
                     <form action="{{ route('producto.edit',$product->id)}}" method="GET">
                         @csrf
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModalLabel">Editar</button>
-
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Editar
+                          </button>
                     </form>
                     </td>
                 </tr>
@@ -47,6 +48,18 @@
         <!--------FIN TABLA------>
     </div>
 </div>
+
+
+<!-- Button trigger modal -->
+
+  @if (productos()==null)
+      
+
+  @else
+  
+  @endif
+  <!-- Modal -->
+
 @endsection
     @section('modal')
         @include('producto.create')

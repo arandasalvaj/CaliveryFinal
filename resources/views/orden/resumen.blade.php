@@ -2,9 +2,9 @@
 @can('Customer')
 @section('contenido')
 <div class="container">
-    <div class="row my-4">
+    <div class="row my-4 ">
         <div class="col-12">
-            <div class="card ">
+            <div class="card shadow p-3 mb-5 bg-white rounded">
                 <div class="card-body px-5">
                     <div class="d-flex justify-content-around">
                         <div>
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row shadow p-3 mb-5 bg-white rounded">
         <div class="col-12 my-4">
             <div class="card ">
                 <div class="card-body px-5">
@@ -38,8 +38,9 @@
                     <br>
                     <div class="row">
                     <div class="col-6 ">
-                        <h6>Imagen</h6>
-
+                        <div class="div text-center">
+                           <h6>Imagen</h6> 
+                        </div>
                     </div>
                     <div class="col-2 ">
                         <h6>Precio</h6>
@@ -64,7 +65,7 @@
 
                     </div>
                     <div class="col-2 ">
-                        <h6>{{$cart->productos->price}}</h6>
+                        <h6>${{$cart->productos->price}}</h6>
 
                     </div>
                     <div class="col-2 ">
@@ -72,7 +73,7 @@
 
                     </div>
                     <div class="col-2 ">
-                        <h6><h6>{{$cart->subtotal}}</h6></h6>
+                        <h6><h6>${{$cart->subtotal}}</h6></h6>
 
                     </div> 
                     @endforeach
@@ -81,7 +82,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row shadow p-3 mb-5 bg-white rounded">
         <div class="col-12 my-4">
             <div class="card ">
                 <div class="card-body px-5">

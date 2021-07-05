@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -78,9 +79,29 @@ class OrderController extends Controller
     public function completado()
     {
         vaciarCarro();
+        
         return view('orden.completado');
     }
 
+    public function ordenesCliente()
+    {
+        
+        return view('orden.misOrdenesC');
+    }
+
+    public function detalleOrdenC($order)
+    {
+        $user=Auth::user();
+        $orders=Order::where('id',$order)->get();
+        foreach( $orders as $order){
+            
+            $items=Item::where('order_id',$order->id)->get();
+            
+        }
+       
+        
+        return view('orden.detalleOrdenC' ,compact('items'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
