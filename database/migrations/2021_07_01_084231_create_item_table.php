@@ -24,8 +24,8 @@ class CreateItemTable extends Migration
             $table->string("size",64)->nullable(); 
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('order')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

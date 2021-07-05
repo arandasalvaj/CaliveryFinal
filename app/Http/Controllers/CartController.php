@@ -16,11 +16,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        if ($user = Auth::user()) {
-            $contador = Cart::where('user_id', $user->id)->count();
-        }else{
-            $contador = 0;
-        }
+
         $user=Auth::user();
 
         $Carts=Cart::where('user_id',$user->id)->get();
@@ -30,7 +26,7 @@ class CartController extends Controller
             $total=$cart->subtotal+$total;
         }
 
-        return view('carro.index',compact('contador','products','Carts','total'));
+        return view('carro.index',compact('products','Carts','total'));
     }
 
     /**
@@ -52,12 +48,6 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $user=Auth::user();
-        
-        if ($user = Auth::user()) {
-            $contador = Cart::where('user_id', $user->id)->count();
-        }else{
-            $contador = 0;
-        }
 
         $carts=Cart::where('product_id',$request->product_id)->where('user_id',$user->id)->get();
 
@@ -82,7 +72,7 @@ class CartController extends Controller
             $carrito->user_id = $user->id;
             $carrito->save();
 
-            return back()->with('contador',$contador);
+            return back();
 
         } else {
 
@@ -95,7 +85,7 @@ class CartController extends Controller
                 $cartNew->user_id = $user->id;
                 $cartNew->save();
             } 
-            return back()->with('contador',$contador);
+            return back();
         }
     }
 
@@ -147,5 +137,14 @@ class CartController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function destroyCart(Cart $cart)
+    {
+        $carts=Cart::all();
+        foreach($carts as $cart){
+            Cart::destroy($cart->id);
+        }
+        return back();
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
@@ -32,6 +33,8 @@ Route::post('/registro-repartidor', [App\Http\Controllers\Auth\RegisterControlle
 Route::resource('/tienda',StoreController::class);
 Route::resource('/categorias',CategoryController::class);
 Route::resource('/cart',CartController::class);
+Route::get('/cart-vacio', [App\Http\Controllers\CartController::class, 'destroyCart'])->name('destroyCart');
 Route::resource('/producto',ProductController::class);
+Route::resource('/item',ItemController::class);
 Route::resource('/orden',OrderController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,12 +1,12 @@
-<footer class="py-4 bg-light mt-auto">
-    <div class="container-fluid px-4">
-        <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Calivery 2021</div>
-            <div>
-                <a href="#">Politicas de privacidad</a>
-                &middot;
-                <a href="#">Terminos &amp; Condiciónes</a>
-            </div>
-        </div>
+<div id="footer-container" class="fluid">
+    <div class="row align-middle">
+      <div class="col text-footer text-center">
+        <p>Contacto +56 9 XXXXXXXX</p>
+        <p>correo@ejemplo.com</p>
+      </div>
+      
+      <div class="col text-footer text-center text-white">
+        <a href="" class="text-footer">Preguntas Frecuentes</a>
+      </div>
     </div>
-</footer>
+  </div>

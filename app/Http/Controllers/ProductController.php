@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
@@ -41,11 +42,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:12'],
+            'name' => ['required', 'string', 'max:64'],
             'price' => 'required',
             'stock' => 'required',
             'detail' => 'required',
-            'img' => ['required', 'image', 'max:1000'],
+            'img' => ['required', 'image', 'max:1024'],
         ]);
         $imagen=$request -> img->store('public/imagenes');
 
@@ -113,7 +114,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
+        $carts=Cart::all();
+        foreach($carts as $cart){
+            Product::destroy($cart->id);
+        }
         return back();
     }
 }
